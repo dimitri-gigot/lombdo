@@ -1,0 +1,22 @@
+{
+  "name": "lombdo",
+  "version": "1.0.0",
+  "description": "Tiny helper to use Mongoose with AWS Lambda",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dimitri-gigot/lombdo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dimitri-gigot/lombdo/issues"
+  },
+  "homepage": "https://github.com/dimitri-gigot/lombdo#readme",
+  "dependencies": {
+    "mongoose": "^4.11.8"
+  }
+}
