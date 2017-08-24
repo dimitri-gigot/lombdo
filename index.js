@@ -2,9 +2,8 @@ const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
 
 let cachedDb = null;
-
 module.exports = (DB_STRING) => (lombdo) => (event, context, callback) => {
-    context.callbackWaitsForEmptyEventLoop = false
+    context.callbackWaitsForEmptyEventLoop = false;
 
     connectToDatabase(DB_STRING).then(() => {
       lombdo(
@@ -27,7 +26,9 @@ module.exports = (DB_STRING) => (lombdo) => (event, context, callback) => {
        headers: {
          'Content-type': 'application/json; charset=utf-8'
        },
-       body: JSON.stringify({data : data})
+       body: JSON.stringify({
+         data : data
+       })
      })
    }
 
