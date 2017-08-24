@@ -7,7 +7,11 @@ module.exports = (DB_STRING) => (lombdo) => (event, context, callback) => {
 
     connectToDatabase(DB_STRING).then(() => {
       lombdo(
-        {event, context},
+        {
+          body: JSON.parse(event.body),
+          param: event.pathParameters,
+          query: event.queryStringParameters
+        },
         {json, html},
         {event, context, callback}
       )
@@ -44,6 +48,7 @@ module.exports = (DB_STRING) => (lombdo) => (event, context, callback) => {
 }
 
 function connectToDatabase(uri) {
-  if (cachedDb && cachedDb.serverConfig.isConnected())return Promise.resolve(cachedDb)
+  if (!uri) return Promise.resolve()
+  if (cachedDb && cachedDb.serverConfig.isConnected()) return Promise.resolve(cachedDb)
   return mongoose.connect(uri).then(db => { cachedDb = db; return cachedDb; })
 }
