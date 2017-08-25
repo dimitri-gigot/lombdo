@@ -28,7 +28,8 @@ module.exports = (DB_STRING) => (lombdo) => (event, context, callback) => {
      callback(null, {
        statusCode: status,
        headers: {
-         'Content-type': 'application/json; charset=utf-8'
+         'Content-type': 'application/json; charset=utf-8',
+         'Access-Control-Allow-Origin' : '*'
        },
        body: JSON.stringify({
          data : data
@@ -40,7 +41,8 @@ module.exports = (DB_STRING) => (lombdo) => (event, context, callback) => {
      callback(null, {
        statusCode: status,
        headers: {
-         'Content-type': 'text/html; charset=utf-8'
+         'Content-type': 'text/html; charset=utf-8',
+         'Access-Control-Allow-Origin' : '*'
        },
        body: str
      })
