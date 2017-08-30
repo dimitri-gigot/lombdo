@@ -70,7 +70,7 @@ function queryStringToJSON(queryString) {
   var result = {};
   pairs.forEach(function(pair) {
     pair = pair.split('=');
-    result[pair[0]] = decodeURIComponent(pair[1] || '');
+    result[pair[0]] = decodeURIComponent(pair[1] || '').replace(/\+/g, '%20');
   });
   return result;
 }
