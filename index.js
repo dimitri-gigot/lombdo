@@ -10,7 +10,7 @@ module.exports = (DB_STRING) => (lombdo) => (event, context, callback) => {
       try{
         body = JSON.parse(event.body)
       }catch(e){
-        body = event.body
+        body = deserialize(event.body)
       }
       lombdo(
         {
@@ -59,4 +59,13 @@ function connectToDatabase(uri) {
   if (!uri) return Promise.resolve()
   if (cachedDb && cachedDb.serverConfig.isConnected()) return Promise.resolve(cachedDb)
   return mongoose.connect(uri).then(db => { cachedDb = db; return cachedDb; })
+}
+
+
+function deserialize(str){
+  return str.split('&').reduce(function(res, d) {
+    var dd = d.split('=')
+    res[dd[0]] = dd[1]
+    return res
+  },{})
 }
