@@ -10,7 +10,7 @@ module.exports = (DB_STRING) => (lombdo) => (event, context, callback) => {
       try{
         body = JSON.parse(event.body)
       }catch(e){
-        body = deserialize(event.body)
+        body = queryStringToJSON(event.body)
       }
       lombdo(
         {
@@ -62,10 +62,15 @@ function connectToDatabase(uri) {
 }
 
 
-function deserialize(str){
-  return str.split('&').reduce(function(res, d) {
-    var dd = d.split('=')
-    res[dd[0]] = dd[1]
-    return res
-  },{})
+function queryStringToJSON(queryString) {
+  if(queryString.indexOf('?') > -1){
+    queryString = queryString.split('?')[1];
+  }
+  var pairs = queryString.split('&');
+  var result = {};
+  pairs.forEach(function(pair) {
+    pair = pair.split('=');
+    result[pair[0]] = decodeURIComponent(pair[1] || '');
+  });
+  return result;
 }
