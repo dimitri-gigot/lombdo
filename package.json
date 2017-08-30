@@ -1,6 +1,6 @@
 {
   "name": "lombdo",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Tiny helper to use Mongoose with AWS Lambda",
   "main": "index.js",
   "scripts": {

@@ -9,12 +9,12 @@ module.exports = (DB_STRING) => (lombdo) => (event, context, callback) => {
       let body;
       try{
         body = JSON.parse(event.body)
-      }catch(){
+      }catch(e){
         body = event.body
       }
       lombdo(
         {
-          body: ,
+          body: body,
           param: event.pathParameters,
           query: event.queryStringParameters
         },
