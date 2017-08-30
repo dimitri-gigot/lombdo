@@ -6,9 +6,15 @@ module.exports = (DB_STRING) => (lombdo) => (event, context, callback) => {
     context.callbackWaitsForEmptyEventLoop = false;
 
     connectToDatabase(DB_STRING).then(() => {
+      let body;
+      try{
+        body = JSON.parse(event.body)
+      }catch(){
+        body = event.body
+      }
       lombdo(
         {
-          body: JSON.parse(event.body),
+          body: ,
           param: event.pathParameters,
           query: event.queryStringParameters
         },
