@@ -58,7 +58,9 @@ module.exports = (DB_STRING) => (lombdo) => (event, context, callback) => {
 function connectToDatabase(uri) {
   if (!uri) return Promise.resolve()
   if (cachedDb && cachedDb.serverConfig.isConnected()) return Promise.resolve(cachedDb)
-  return mongoose.connect(uri).then(db => { cachedDb = db; return cachedDb; })
+  return mongoose.connect(uri,{
+    server: { poolSize: 2 }
+  }).then(db => { cachedDb = db; return cachedDb; })
 }
 
 
@@ -70,7 +72,7 @@ function queryStringToJSON(queryString) {
   var result = {};
   pairs.forEach(function(pair) {
     pair = pair.split('=');
-    result[pair[0]] = decodeURIComponent(pair[1] || '').replace(/\+/g, '%20');
+    result[pair[0]] = decodeURIComponent(pair[1].replace(/\+/g, '%20') || '');
   });
   return result;
 }
